@@ -1,6 +1,7 @@
 package cn.wudashan.domain;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
  * @author wuzhaofeng
@@ -20,16 +21,16 @@ public class Trade {
     private String userId;
 
     @Column(nullable = false)
-    private Double foreignAmount;
+    private BigDecimal foreignAmount;
 
     @Column(nullable = false)
     private String foreignAmountType;
 
     @Column(nullable = false)
-    private Double rmbAmount;
+    private BigDecimal rmbAmount;
 
     @Column(nullable = false)
-    private Double exchangeRate;
+    private BigDecimal exchangeRate;
 
     @Column(nullable = false)
     private String foreignTradeDirection;
@@ -61,11 +62,11 @@ public class Trade {
         this.userId = userId;
     }
 
-    public Double getForeignAmount() {
+    public BigDecimal getForeignAmount() {
         return foreignAmount;
     }
 
-    public void setForeignAmount(Double foreignAmount) {
+    public void setForeignAmount(BigDecimal foreignAmount) {
         this.foreignAmount = foreignAmount;
     }
 
@@ -77,19 +78,19 @@ public class Trade {
         this.foreignAmountType = foreignAmountType;
     }
 
-    public Double getRmbAmount() {
+    public BigDecimal getRmbAmount() {
         return rmbAmount;
     }
 
-    public void setRmbAmount(Double rmbAmount) {
+    public void setRmbAmount(BigDecimal rmbAmount) {
         this.rmbAmount = rmbAmount;
     }
 
-    public Double getExchangeRate() {
+    public BigDecimal getExchangeRate() {
         return exchangeRate;
     }
 
-    public void setExchangeRate(Double exchangeRate) {
+    public void setExchangeRate(BigDecimal exchangeRate) {
         this.exchangeRate = exchangeRate;
     }
 

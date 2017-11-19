@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,10 +47,10 @@ public class TradeControllerTest extends JunitBaseTest {
         // 构造条件
         TradeRequestDTO requestDTO = new TradeRequestDTO();
         requestDTO.setUserId(UUID.randomUUID().toString());
-        requestDTO.setRmbAmount(125.0);
+        requestDTO.setRmbAmount(new BigDecimal(125.0));
         requestDTO.setForeignTradeDirection(ForeignTradeDirection.BUY.getValue());
-        requestDTO.setForeignAmount(100.0);
-        requestDTO.setExchangeRate(0.8);
+        requestDTO.setForeignAmount(new BigDecimal(100.0));
+        requestDTO.setExchangeRate(new BigDecimal(0.8));
         requestDTO.setForeignAmountType(ForeignAmountType.HKD.getValue());
 
         // 调用测试接口
@@ -84,10 +85,10 @@ public class TradeControllerTest extends JunitBaseTest {
         trade.setUserId(UUID.randomUUID().toString());
         trade.setTradeId(UUID.randomUUID().toString());
         trade.setStatus(TradeStatus.DEFALUT.getValue());
-        trade.setRmbAmount(125.0);
+        trade.setRmbAmount(new BigDecimal(125.0));
         trade.setForeignTradeDirection(ForeignTradeDirection.BUY.getValue());
-        trade.setForeignAmount(100.0);
-        trade.setExchangeRate(0.8);
+        trade.setForeignAmount(new BigDecimal(100.0));
+        trade.setExchangeRate(new BigDecimal(0.8));
         trade.setForeignAmountType(ForeignAmountType.HKD.getValue());
         tradeRepository.save(trade);
 
@@ -129,10 +130,10 @@ public class TradeControllerTest extends JunitBaseTest {
         trade.setUserId(UUID.randomUUID().toString());
         trade.setTradeId(UUID.randomUUID().toString());
         trade.setStatus(TradeStatus.DEFALUT.getValue());
-        trade.setRmbAmount(125.0);
+        trade.setRmbAmount(new BigDecimal(125.0));
         trade.setForeignTradeDirection(ForeignTradeDirection.BUY.getValue());
-        trade.setForeignAmount(100.0);
-        trade.setExchangeRate(0.8);
+        trade.setForeignAmount(new BigDecimal(100.0));
+        trade.setExchangeRate(new BigDecimal(0.8));
         trade.setForeignAmountType(ForeignAmountType.HKD.getValue());
         tradeRepository.save(trade);
 

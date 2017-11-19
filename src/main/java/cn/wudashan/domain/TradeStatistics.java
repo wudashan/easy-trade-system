@@ -3,6 +3,7 @@ package cn.wudashan.domain;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
  * @author wuzhaofeng
@@ -19,7 +20,7 @@ public class TradeStatistics {
     private String amountType;
 
     @Column(nullable = false)
-    private Double amount;
+    private BigDecimal amount;
 
     @Column(nullable = false)
     private DateTime statisticsTime;
@@ -40,11 +41,11 @@ public class TradeStatistics {
         this.amountType = amountType;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

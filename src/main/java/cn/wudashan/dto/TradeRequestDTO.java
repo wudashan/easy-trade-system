@@ -1,8 +1,10 @@
 package cn.wudashan.dto;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 
 /**
  * @author wuzhaofeng
@@ -14,17 +16,20 @@ public class TradeRequestDTO {
     private String userId;
 
     @NotNull
-    private Double foreignAmount;
+    @Digits(integer=10, fraction=3)
+    private BigDecimal foreignAmount;
 
     @NotNull
     @Pattern(regexp = "USD|HKD")
     private String foreignAmountType;
 
     @NotNull
-    private Double rmbAmount;
+    @Digits(integer=10, fraction=3)
+    private BigDecimal rmbAmount;
 
     @NotNull
-    private Double exchangeRate;
+    @Digits(integer=10, fraction=6)
+    private BigDecimal exchangeRate;
 
     @NotNull
     @Pattern(regexp = "buy|sell")
@@ -38,11 +43,11 @@ public class TradeRequestDTO {
         this.userId = userId;
     }
 
-    public Double getForeignAmount() {
+    public BigDecimal getForeignAmount() {
         return foreignAmount;
     }
 
-    public void setForeignAmount(Double foreignAmount) {
+    public void setForeignAmount(BigDecimal foreignAmount) {
         this.foreignAmount = foreignAmount;
     }
 
@@ -54,19 +59,19 @@ public class TradeRequestDTO {
         this.foreignAmountType = foreignAmountType;
     }
 
-    public Double getRmbAmount() {
+    public BigDecimal getRmbAmount() {
         return rmbAmount;
     }
 
-    public void setRmbAmount(Double rmbAmount) {
+    public void setRmbAmount(BigDecimal rmbAmount) {
         this.rmbAmount = rmbAmount;
     }
 
-    public Double getExchangeRate() {
+    public BigDecimal getExchangeRate() {
         return exchangeRate;
     }
 
-    public void setExchangeRate(Double exchangeRate) {
+    public void setExchangeRate(BigDecimal exchangeRate) {
         this.exchangeRate = exchangeRate;
     }
 
