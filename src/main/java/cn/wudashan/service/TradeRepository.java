@@ -10,4 +10,6 @@ public interface TradeRepository extends Repository<Trade, Long> {
 
     void save(Trade trade);
 
+    Trade findByTradeIdAndStatus(String tradeId, String status);
+
 }

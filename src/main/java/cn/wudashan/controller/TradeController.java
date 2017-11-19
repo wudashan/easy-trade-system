@@ -1,5 +1,6 @@
 package cn.wudashan.controller;
 
+import cn.wudashan.dto.CancelTradeRequestDTO;
 import cn.wudashan.dto.TradeRequestDTO;
 import cn.wudashan.dto.TradeResponseDTO;
 import cn.wudashan.service.TradeService;
@@ -37,6 +38,20 @@ public class TradeController {
         TradeResponseDTO responseDTO = new TradeResponseDTO();
         responseDTO.setTradeId(tradeId);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/v1/cancelTrade", method= RequestMethod.POST)
+    public ResponseEntity<Void> cancelTrade(@RequestBody @Valid CancelTradeRequestDTO requestDTO) {
+
+        logger.info("request:{}", requestDTO);
+
+        boolean result = tradeService.cancelTrade(requestDTO);
+
+        if (!result) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

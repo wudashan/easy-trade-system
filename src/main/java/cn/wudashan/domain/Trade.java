@@ -34,6 +34,9 @@ public class Trade {
     @Column(nullable = false)
     private String foreignTradeDirection;
 
+    @Column(nullable = false)
+    private String status;
+
     public int getId() {
         return id;
     }
@@ -96,5 +99,13 @@ public class Trade {
 
     public void setForeignTradeDirection(String foreignTradeDirection) {
         this.foreignTradeDirection = foreignTradeDirection;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
