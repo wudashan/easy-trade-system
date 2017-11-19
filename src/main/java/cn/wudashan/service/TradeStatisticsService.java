@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public class TradeStatisticsService {
 
-    private static final String PER_ONE_MINUTES = "0 0/1 * * * ?";
+    private static final String PER_TEN_MINUTES = "0 0/10 * * * ?";
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -28,16 +28,17 @@ public class TradeStatisticsService {
     @Autowired
     private TradeStatisticsRepository tradeStatisticsRepository;
 
-    @Scheduled(cron = PER_ONE_MINUTES)
+    @Scheduled(cron = PER_TEN_MINUTES)
     public void statisticsTrade() {
 
         logger.info("start...");
 
         DateTime statisticsTime = new DateTime();
 
-        for (ForeignAmountType foreignAmountType : ForeignAmountType.values()) {
+        BigDecimal rmbMoney = new BigDecimal(0);
+        for (AmountType amountType : AmountType.values()) {
 
-            List<Trade> trades = tradeService.findAll(TradeStatus.DEFALUT, foreignAmountType);
+            List<Trade> trades = tradeService.findAll(TradeStatus.DEFALUT, amountType);
             if (trades.isEmpty()) {
                 continue;
             }
@@ -46,22 +47,30 @@ public class TradeStatisticsService {
             }
             tradeService.saveAll(trades);
 
-            BigDecimal money = new BigDecimal(0);
+            BigDecimal foreignMoney = new BigDecimal(0);
             for (Trade trade : trades) {
                 if (ForeignTradeDirection.BUY.getValue().equals(trade.getForeignTradeDirection())) {
-                    money = money.subtract(trade.getForeignAmount());
+                    foreignMoney = foreignMoney.subtract(trade.getForeignAmount());
+                    rmbMoney = rmbMoney.subtract(trade.getRmbAmount());
                 }
                 if (ForeignTradeDirection.SELL.getValue().equals(trade.getForeignTradeDirection())) {
-                    money = money.add(trade.getForeignAmount());
+                    foreignMoney = foreignMoney.add(trade.getForeignAmount());
+                    rmbMoney = rmbMoney.add(trade.getRmbAmount());
                 }
             }
             TradeStatistics tradeStatistics = new TradeStatistics();
-            tradeStatistics.setAmountType(foreignAmountType.getValue());
-            tradeStatistics.setAmount(money);
+            tradeStatistics.setAmountType(amountType.getValue());
+            tradeStatistics.setAmount(foreignMoney);
             tradeStatistics.setStatisticsTime(statisticsTime);
             tradeStatisticsRepository.save(tradeStatistics);
 
         }
+
+        TradeStatistics tradeStatistics = new TradeStatistics();
+        tradeStatistics.setAmountType(AmountType.RMB.getValue());
+        tradeStatistics.setAmount(rmbMoney);
+        tradeStatistics.setStatisticsTime(statisticsTime);
+        tradeStatisticsRepository.save(tradeStatistics);
 
         logger.info("end...");
 

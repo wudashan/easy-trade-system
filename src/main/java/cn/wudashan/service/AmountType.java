@@ -4,13 +4,13 @@ package cn.wudashan.service;
  * @author wuzhaofeng
  */
 
-public enum ForeignAmountType {
+public enum AmountType {
 
-    USD("USD"), HKD("HKD");
+    USD("USD"), HKD("HKD"), RMB("RMB");
 
     private final String value;
 
-    ForeignAmountType(String value) {
+    AmountType(String value) {
         this.value = value;
     }
 

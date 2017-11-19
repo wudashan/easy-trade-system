@@ -51,8 +51,8 @@ public class TradeService {
 
     }
 
-    public List<Trade> findAll(TradeStatus tradeStatus, ForeignAmountType foreignAmountType) {
-        return tradeRepository.findAllByStatusAndForeignAmountType(tradeStatus.getValue(), foreignAmountType.getValue());
+    public List<Trade> findAll(TradeStatus tradeStatus, AmountType amountType) {
+        return tradeRepository.findAllByStatusAndForeignAmountType(tradeStatus.getValue(), amountType.getValue());
     }
 
     public List<Trade> saveAll(List<Trade> trades) {

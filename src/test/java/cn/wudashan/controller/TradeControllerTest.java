@@ -6,7 +6,7 @@ import cn.wudashan.dto.CancelTradeRequestDTO;
 import cn.wudashan.dto.CancelTradeResponseDTO;
 import cn.wudashan.dto.TradeRequestDTO;
 import cn.wudashan.dto.TradeResponseDTO;
-import cn.wudashan.service.ForeignAmountType;
+import cn.wudashan.service.AmountType;
 import cn.wudashan.service.ForeignTradeDirection;
 import cn.wudashan.service.TradeRepository;
 import cn.wudashan.service.TradeStatus;
@@ -51,7 +51,7 @@ public class TradeControllerTest extends JunitBaseTest {
         requestDTO.setForeignTradeDirection(ForeignTradeDirection.BUY.getValue());
         requestDTO.setForeignAmount(new BigDecimal(100.0));
         requestDTO.setExchangeRate(new BigDecimal(0.8));
-        requestDTO.setForeignAmountType(ForeignAmountType.HKD.getValue());
+        requestDTO.setForeignAmountType(AmountType.HKD.getValue());
 
         // 调用测试接口
         ResultActions resultActions = mockMvc.perform(post(TRADE_URL)
@@ -89,7 +89,7 @@ public class TradeControllerTest extends JunitBaseTest {
         trade.setForeignTradeDirection(ForeignTradeDirection.BUY.getValue());
         trade.setForeignAmount(new BigDecimal(100.0));
         trade.setExchangeRate(new BigDecimal(0.8));
-        trade.setForeignAmountType(ForeignAmountType.HKD.getValue());
+        trade.setForeignAmountType(AmountType.HKD.getValue());
         tradeRepository.save(trade);
 
         CancelTradeRequestDTO requestDTO = new CancelTradeRequestDTO();
@@ -134,7 +134,7 @@ public class TradeControllerTest extends JunitBaseTest {
         trade.setForeignTradeDirection(ForeignTradeDirection.BUY.getValue());
         trade.setForeignAmount(new BigDecimal(100.0));
         trade.setExchangeRate(new BigDecimal(0.8));
-        trade.setForeignAmountType(ForeignAmountType.HKD.getValue());
+        trade.setForeignAmountType(AmountType.HKD.getValue());
         tradeRepository.save(trade);
 
         CancelTradeRequestDTO requestDTO = new CancelTradeRequestDTO();
