@@ -2,6 +2,7 @@ package cn.wudashan.service;
 
 import cn.wudashan.domain.Trade;
 import cn.wudashan.domain.TradeStatistics;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,13 @@ public class TradeStatisticsService {
 
         logger.info("start...");
 
+        DateTime statisticsTime = new DateTime();
+
         for (ForeignAmountType foreignAmountType : ForeignAmountType.values()) {
 
             List<Trade> trades = tradeService.findAll(TradeStatus.DEFALUT, foreignAmountType);
             if (trades.isEmpty()) {
-                return;
+                continue;
             }
             for (Trade trade : trades) {
                 trade.setStatus(TradeStatus.AGGREGATED.getValue());
@@ -53,6 +56,7 @@ public class TradeStatisticsService {
             TradeStatistics tradeStatistics = new TradeStatistics();
             tradeStatistics.setAmountType(foreignAmountType.getValue());
             tradeStatistics.setAmount(money);
+            tradeStatistics.setStatisticsTime(statisticsTime);
             tradeStatisticsRepository.save(tradeStatistics);
 
         }

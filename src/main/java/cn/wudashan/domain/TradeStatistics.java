@@ -1,5 +1,8 @@
 package cn.wudashan.domain;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
 
 /**
@@ -18,6 +21,9 @@ public class TradeStatistics {
 
     @Column(nullable = false)
     private Double amount;
+
+    @Column(nullable = false)
+    private DateTime statisticsTime;
 
     public int getId() {
         return id;
@@ -41,5 +47,13 @@ public class TradeStatistics {
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public DateTime getStatisticsTime() {
+        return statisticsTime;
+    }
+
+    public void setStatisticsTime(DateTime statisticsTime) {
+        this.statisticsTime = statisticsTime;
     }
 }
