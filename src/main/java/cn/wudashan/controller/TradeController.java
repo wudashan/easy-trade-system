@@ -32,7 +32,7 @@ public class TradeController {
 
         logger.info("request:{}", requestDTO);
 
-        String tradeId = tradeService.saveTrade();
+        String tradeId = tradeService.saveTrade(requestDTO);
 
         TradeResponseDTO responseDTO = new TradeResponseDTO();
         responseDTO.setTradeId(tradeId);
