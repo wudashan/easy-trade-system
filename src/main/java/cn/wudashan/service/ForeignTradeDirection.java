@@ -4,19 +4,18 @@ package cn.wudashan.service;
  * @author wuzhaofeng
  */
 
-public enum TradeStatus {
+public enum ForeignTradeDirection {
 
-    DEFALUT("DEFAULT"), CANCEL("CANCEL"), AGGREGATED("AGGREGATED");
+    BUY("buy"), SELL("sell");
 
     private final String value;
 
-    TradeStatus(String value) {
+    ForeignTradeDirection(String value) {
         this.value = value;
     }
 
     public String getValue() {
         return value;
     }
-
 
 }

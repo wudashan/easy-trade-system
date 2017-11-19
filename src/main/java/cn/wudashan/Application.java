@@ -2,11 +2,13 @@ package cn.wudashan;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author wuzhaofeng
  */
 @SpringBootApplication
+@EnableScheduling
 public class Application {
 
     public static void main(String[] args) throws Exception {

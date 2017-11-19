@@ -6,6 +6,7 @@ import cn.wudashan.dto.TradeRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -46,6 +47,14 @@ public class TradeService {
         tradeRepository.save(trade);
         return true;
 
+    }
+
+    public List<Trade> findAll(TradeStatus tradeStatus, ForeignAmountType foreignAmountType) {
+        return tradeRepository.findAllByStatusAndForeignAmountType(tradeStatus.getValue(), foreignAmountType.getValue());
+    }
+
+    public List<Trade> saveAll(List<Trade> trades) {
+        return tradeRepository.save(trades);
     }
 
 }

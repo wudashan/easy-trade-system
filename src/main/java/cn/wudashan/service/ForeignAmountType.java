@@ -4,19 +4,18 @@ package cn.wudashan.service;
  * @author wuzhaofeng
  */
 
-public enum TradeStatus {
+public enum ForeignAmountType {
 
-    DEFALUT("DEFAULT"), CANCEL("CANCEL"), AGGREGATED("AGGREGATED");
+    USD("USD"), HKD("HKD");
 
     private final String value;
 
-    TradeStatus(String value) {
+    ForeignAmountType(String value) {
         this.value = value;
     }
 
     public String getValue() {
         return value;
     }
-
 
 }
