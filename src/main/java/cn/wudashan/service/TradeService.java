@@ -3,6 +3,7 @@ package cn.wudashan.service;
 import cn.wudashan.domain.Trade;
 import cn.wudashan.dto.CancelTradeRequestDTO;
 import cn.wudashan.dto.TradeRequestDTO;
+import cn.wudashan.service.exception.TradeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,15 +38,16 @@ public class TradeService {
 
     }
 
-    public boolean cancelTrade(CancelTradeRequestDTO requestDTO) {
+    public void cancelTrade(CancelTradeRequestDTO requestDTO) throws TradeNotFoundException {
 
-        Trade trade = tradeRepository.findByTradeIdAndStatus(requestDTO.getTradeId(), TradeStatus.DEFALUT.getValue());
+        Trade trade = tradeRepository.findByTradeIdAndUserIdAndStatus(requestDTO.getTradeId(), requestDTO.getUserId(),
+            TradeStatus.DEFALUT.getValue());
         if (trade == null) {
-            return false;
+            throw new TradeNotFoundException();
         }
+
         trade.setStatus(TradeStatus.CANCEL.getValue());
         tradeRepository.save(trade);
-        return true;
 
     }
 

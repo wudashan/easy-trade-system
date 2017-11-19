@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class TradeStatisticsService {
 
-    private static final String PER_TEN_SECOND = "0/10 * * * * ?";
+    private static final String PER_ONE_MINUTES = "0 0/1 * * * ?";
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -26,7 +26,7 @@ public class TradeStatisticsService {
     @Autowired
     private TradeStatisticsRepository tradeStatisticsRepository;
 
-    @Scheduled(cron = PER_TEN_SECOND)
+    @Scheduled(cron = PER_ONE_MINUTES)
     public void statisticsTrade() {
 
         logger.info("start...");

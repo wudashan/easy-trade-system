@@ -1,9 +1,11 @@
 package cn.wudashan.controller;
 
 import cn.wudashan.dto.CancelTradeRequestDTO;
+import cn.wudashan.dto.CancelTradeResponseDTO;
 import cn.wudashan.dto.TradeRequestDTO;
 import cn.wudashan.dto.TradeResponseDTO;
 import cn.wudashan.service.TradeService;
+import cn.wudashan.service.exception.TradeNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,17 +43,22 @@ public class TradeController {
     }
 
     @RequestMapping(path = "/v1/cancelTrade", method= RequestMethod.POST)
-    public ResponseEntity<Void> cancelTrade(@RequestBody @Valid CancelTradeRequestDTO requestDTO) {
+    public ResponseEntity<CancelTradeResponseDTO> cancelTrade(@RequestBody @Valid CancelTradeRequestDTO requestDTO) {
 
         logger.info("request:{}", requestDTO);
 
-        boolean result = tradeService.cancelTrade(requestDTO);
-
-        if (!result) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        CancelTradeResponseDTO responseDTO = new CancelTradeResponseDTO();
+        try {
+            tradeService.cancelTrade(requestDTO);
+        } catch (TradeNotFoundException e) {
+            logger.warn("can not find trade");
+            responseDTO.setResult("Failed");
+            responseDTO.setResultDetail("Can not find or cancel trade!");
+            return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        responseDTO.setResult("Success");
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
 }

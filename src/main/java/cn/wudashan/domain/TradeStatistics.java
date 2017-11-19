@@ -1,6 +1,5 @@
 package cn.wudashan.domain;
 
-import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
@@ -9,7 +8,7 @@ import javax.persistence.*;
  * @author wuzhaofeng
  */
 @Entity
-@Table(name = "tradeStatistics")
+@Table(name = "trade_statistics")
 public class TradeStatistics {
 
     @Id

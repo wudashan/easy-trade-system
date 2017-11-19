@@ -10,9 +10,8 @@ import java.util.List;
  */
 public interface TradeRepository extends JpaRepository<Trade, Long> {
 
-    Trade findByTradeIdAndStatus(String tradeId, String status);
+    Trade findByTradeIdAndUserIdAndStatus(String tradeId, String userId, String status);
 
     List<Trade> findAllByStatusAndForeignAmountType(String status, String foreignAmountType);
-
 
 }
