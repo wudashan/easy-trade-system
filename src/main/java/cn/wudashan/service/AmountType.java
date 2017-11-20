@@ -6,7 +6,14 @@ package cn.wudashan.service;
 
 public enum AmountType {
 
-    USD("USD"), HKD("HKD"), RMB("RMB");
+    // 美元
+    USD("USD"),
+
+    // 港币
+    HKD("HKD"),
+
+    // 人民币
+    RMB("RMB");
 
     private final String value;
 

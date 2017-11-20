@@ -6,7 +6,11 @@ package cn.wudashan.service;
 
 public enum ForeignTradeDirection {
 
-    BUY("buy"), SELL("sell");
+    // 买入外币
+    BUY("buy"),
+
+    // 卖出外币
+    SELL("sell");
 
     private final String value;
 

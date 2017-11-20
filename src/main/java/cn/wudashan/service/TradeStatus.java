@@ -6,7 +6,17 @@ package cn.wudashan.service;
 
 public enum TradeStatus {
 
-    DEFALUT("DEFAULT"), CANCEL("CANCEL"), AGGREGATED("AGGREGATED"), AGGREGATING("AGGREGATING");
+    // 默认状态
+    DEFALUT("DEFAULT"),
+
+    // 取消状态
+    CANCEL("CANCEL"),
+
+    // 已汇合状态
+    AGGREGATED("AGGREGATED"),
+
+    // 正在汇合状态
+    AGGREGATING("AGGREGATING");
 
     private final String value;
 

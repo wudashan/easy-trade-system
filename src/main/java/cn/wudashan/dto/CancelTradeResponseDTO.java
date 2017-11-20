@@ -1,5 +1,8 @@
 package cn.wudashan.dto;
 
+/**
+ * @author wuzhaofeng
+ */
 public class CancelTradeResponseDTO {
 
     private String result;
