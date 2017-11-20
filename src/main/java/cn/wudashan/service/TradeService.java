@@ -5,7 +5,6 @@ import cn.wudashan.domain.Trade;
 import cn.wudashan.dto.CancelTradeRequestDTO;
 import cn.wudashan.dto.TradeRequestDTO;
 import cn.wudashan.service.exception.TradeNotFoundException;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

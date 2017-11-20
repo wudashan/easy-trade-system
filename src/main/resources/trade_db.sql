@@ -31,6 +31,8 @@ CREATE TABLE `trade` (
   `status` varchar(64) NOT NULL,
   `trade_id` char(36) NOT NULL,
   `user_id` varchar(64) NOT NULL,
+  `gmt_create` datetime NOT NULL,
+  `gmt_modified` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_trade_id_user_id` (`trade_id`(20),`user_id`(20)) USING BTREE,
   KEY `idx_trade_id_user_id_status` (`trade_id`(20),`user_id`(20),`status`(20)) USING HASH

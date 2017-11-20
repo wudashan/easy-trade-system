@@ -4,12 +4,14 @@ import cn.wudashan.domain.Trade;
 import cn.wudashan.dto.CancelTradeRequestDTO;
 import cn.wudashan.dto.TradeRequestDTO;
 import cn.wudashan.service.exception.TradeNotFoundException;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.xml.stream.events.DTD;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,6 +39,9 @@ public class TradeServiceImpl implements TradeService {
         trade.setRmbAmount(requestDTO.getRmbAmount());
         trade.setExchangeRate(requestDTO.getExchangeRate());
         trade.setStatus(TradeStatus.DEFALUT.getValue());
+        DateTime now = new DateTime();
+        trade.setGmtCreate(now);
+        trade.setGmtModified(now);
         tradeRepository.save(trade);
         return tradeId;
 
@@ -52,6 +57,7 @@ public class TradeServiceImpl implements TradeService {
         }
 
         trade.setStatus(TradeStatus.CANCEL.getValue());
+        trade.setGmtModified(new DateTime());
         tradeRepository.save(trade);
 
     }

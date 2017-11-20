@@ -1,5 +1,7 @@
 package cn.wudashan.domain;
 
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -37,6 +39,12 @@ public class Trade {
 
     @Column(nullable = false)
     private String status;
+
+    @Column(nullable = false)
+    private DateTime gmtCreate;
+
+    @Column(nullable = false)
+    private DateTime gmtModified;
 
     public int getId() {
         return id;
@@ -108,5 +116,21 @@ public class Trade {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public DateTime getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(DateTime gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public DateTime getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(DateTime gmtModified) {
+        this.gmtModified = gmtModified;
     }
 }
