@@ -1,6 +1,7 @@
 package cn.wudashan.service;
 
 import cn.wudashan.domain.Trade;
+import org.joda.time.DateTime;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -22,7 +23,7 @@ public interface TradeRepository extends JpaRepository<Trade, Long> {
 
     @Modifying
     @Transactional
-    @Query("update Trade t set t.status = ?1 where t.status = ?2")
-    void updateAllByStatus(String dstStatus, String srcStatus);
+    @Query("update Trade t set t.status = ?1, t.gmtModified = ?2 where t.status = ?3")
+    void updateAllByStatus(String dstStatus, DateTime gmtModified, String srcStatus);
 
 }

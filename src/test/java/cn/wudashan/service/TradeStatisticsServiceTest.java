@@ -3,6 +3,7 @@ package cn.wudashan.service;
 import cn.wudashan.JunitBaseTest;
 import cn.wudashan.domain.Trade;
 import cn.wudashan.domain.TradeStatistics;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,8 @@ public class TradeStatisticsServiceTest extends JunitBaseTest {
         trade1.setForeignAmountType(AmountType.HKD.getValue());
         trade1.setStatus(TradeStatus.DEFALUT.getValue());
         trade1.setTradeId(UUID.randomUUID().toString());
+        trade1.setGmtCreate(new DateTime());
+        trade1.setGmtModified(new DateTime());
         tradeRepository.save(trade1);
 
         Trade trade2 = new Trade();
@@ -54,6 +57,8 @@ public class TradeStatisticsServiceTest extends JunitBaseTest {
         trade2.setForeignAmountType(AmountType.USD.getValue());
         trade2.setStatus(TradeStatus.DEFALUT.getValue());
         trade2.setTradeId(UUID.randomUUID().toString());
+        trade2.setGmtCreate(new DateTime());
+        trade2.setGmtModified(new DateTime());
         tradeRepository.save(trade2);
 
         Trade trade3 = new Trade();
@@ -65,6 +70,8 @@ public class TradeStatisticsServiceTest extends JunitBaseTest {
         trade3.setForeignAmountType(AmountType.USD.getValue());
         trade3.setStatus(TradeStatus.DEFALUT.getValue());
         trade3.setTradeId(UUID.randomUUID().toString());
+        trade3.setGmtCreate(new DateTime());
+        trade3.setGmtModified(new DateTime());
         tradeRepository.save(trade3);
 
 
@@ -86,14 +93,20 @@ public class TradeStatisticsServiceTest extends JunitBaseTest {
         TradeStatistics tradeStatistics1 = tradeStatistics.get(0);
         assertThat(tradeStatistics1.getAmount().compareTo(new BigDecimal(80))).isEqualTo(0);
         assertThat(tradeStatistics1.getAmountType()).isEqualTo(AmountType.USD.getValue());
+        assertThat(tradeStatistics1.getGmtCreate()).isNotNull();
+        assertThat(tradeStatistics1.getGmtModified()).isNotNull();
 
         TradeStatistics tradeStatistics2 = tradeStatistics.get(1);
         assertThat(tradeStatistics2.getAmount().compareTo(new BigDecimal(-100))).isEqualTo(0);
         assertThat(tradeStatistics2.getAmountType()).isEqualTo(AmountType.HKD.getValue());
+        assertThat(tradeStatistics2.getGmtCreate()).isNotNull();
+        assertThat(tradeStatistics2.getGmtModified()).isNotNull();
 
         TradeStatistics tradeStatistics3 = tradeStatistics.get(2);
         assertThat(tradeStatistics3.getAmount().compareTo(new BigDecimal(575))).isEqualTo(0);
         assertThat(tradeStatistics3.getAmountType()).isEqualTo(AmountType.RMB.getValue());
+        assertThat(tradeStatistics3.getGmtCreate()).isNotNull();
+        assertThat(tradeStatistics3.getGmtModified()).isNotNull();
 
     }
 

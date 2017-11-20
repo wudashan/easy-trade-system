@@ -23,7 +23,10 @@ public class TradeStatistics {
     private BigDecimal amount;
 
     @Column(nullable = false)
-    private DateTime statisticsTime;
+    private DateTime gmtCreate;
+
+    @Column(nullable = false)
+    private DateTime gmtModified;
 
     public int getId() {
         return id;
@@ -49,11 +52,19 @@ public class TradeStatistics {
         this.amount = amount;
     }
 
-    public DateTime getStatisticsTime() {
-        return statisticsTime;
+    public DateTime getGmtCreate() {
+        return gmtCreate;
     }
 
-    public void setStatisticsTime(DateTime statisticsTime) {
-        this.statisticsTime = statisticsTime;
+    public void setGmtCreate(DateTime gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public DateTime getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(DateTime gmtModified) {
+        this.gmtModified = gmtModified;
     }
 }

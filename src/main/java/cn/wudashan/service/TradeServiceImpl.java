@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.xml.stream.events.DTD;
 import java.util.List;
 import java.util.UUID;
 
@@ -76,7 +75,7 @@ public class TradeServiceImpl implements TradeService {
 
     @Override
     public void updateAllByStatus(TradeStatus dstStatus, TradeStatus srcStatus) {
-        tradeRepository.updateAllByStatus(dstStatus.getValue(), srcStatus.getValue());
+        tradeRepository.updateAllByStatus(dstStatus.getValue(), new DateTime(), srcStatus.getValue());
     }
 
 }

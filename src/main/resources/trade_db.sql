@@ -46,7 +46,8 @@ CREATE TABLE `trade_statistics` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `amount` decimal(10,3) NOT NULL,
   `amount_type` varchar(36) NOT NULL,
-  `statistics_time` datetime NOT NULL,
+  `gmt_create` datetime NOT NULL,
+  `gmt_modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 

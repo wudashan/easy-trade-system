@@ -74,14 +74,16 @@ public class TradeStatisticsServiceImpl implements TradeStatisticsService {
             TradeStatistics tradeStatistics = new TradeStatistics();
             tradeStatistics.setAmountType(amountType.getValue());
             tradeStatistics.setAmount(foreignMoney);
-            tradeStatistics.setStatisticsTime(statisticsTime);
+            tradeStatistics.setGmtCreate(statisticsTime);
+            tradeStatistics.setGmtModified(statisticsTime);
             tradeStatisticsRepository.save(tradeStatistics);
         }
 
         TradeStatistics tradeStatistics = new TradeStatistics();
         tradeStatistics.setAmountType(AmountType.RMB.getValue());
         tradeStatistics.setAmount(rmbMoney);
-        tradeStatistics.setStatisticsTime(statisticsTime);
+        tradeStatistics.setGmtCreate(statisticsTime);
+        tradeStatistics.setGmtModified(statisticsTime);
         tradeStatisticsRepository.save(tradeStatistics);
 
         tradeService.updateAllByStatus(TradeStatus.AGGREGATED, TradeStatus.AGGREGATING);

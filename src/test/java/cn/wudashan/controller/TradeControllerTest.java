@@ -11,6 +11,7 @@ import cn.wudashan.service.ForeignTradeDirection;
 import cn.wudashan.service.TradeRepository;
 import cn.wudashan.service.TradeStatus;
 import cn.wudashan.util.JsonUtil;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +77,8 @@ public class TradeControllerTest extends JunitBaseTest {
         assertThat(trade.getUserId()).isEqualTo(requestDTO.getUserId());
         assertThat(trade.getTradeId()).isEqualTo(responseDTO.getTradeId());
         assertThat(trade.getStatus()).isEqualTo(TradeStatus.DEFALUT.getValue());
+        assertThat(trade.getGmtCreate()).isNotNull();
+        assertThat(trade.getGmtModified()).isNotNull();
     }
 
     @Test
@@ -91,6 +94,8 @@ public class TradeControllerTest extends JunitBaseTest {
         trade.setForeignAmount(new BigDecimal(100.0).setScale(3, RoundingMode.FLOOR));
         trade.setExchangeRate(new BigDecimal(0.8).setScale(6, RoundingMode.FLOOR));
         trade.setForeignAmountType(AmountType.HKD.getValue());
+        trade.setGmtCreate(new DateTime());
+        trade.setGmtModified(new DateTime());
         tradeRepository.save(trade);
 
         CancelTradeRequestDTO requestDTO = new CancelTradeRequestDTO();
@@ -120,7 +125,8 @@ public class TradeControllerTest extends JunitBaseTest {
         assertThat(dbTrade.getUserId()).isEqualTo(trade.getUserId());
         assertThat(dbTrade.getTradeId()).isEqualTo(trade.getTradeId());
         assertThat(dbTrade.getStatus()).isEqualTo(TradeStatus.CANCEL.getValue());
-
+        assertThat(dbTrade.getGmtCreate()).isNotNull();
+        assertThat(dbTrade.getGmtModified()).isNotNull();
     }
 
     @Test
@@ -136,6 +142,8 @@ public class TradeControllerTest extends JunitBaseTest {
         trade.setForeignAmount(new BigDecimal(100.0).setScale(3, RoundingMode.FLOOR));
         trade.setExchangeRate(new BigDecimal(0.8).setScale(6, RoundingMode.FLOOR));
         trade.setForeignAmountType(AmountType.HKD.getValue());
+        trade.setGmtCreate(new DateTime());
+        trade.setGmtModified(new DateTime());
         tradeRepository.save(trade);
 
         CancelTradeRequestDTO requestDTO = new CancelTradeRequestDTO();
@@ -165,6 +173,8 @@ public class TradeControllerTest extends JunitBaseTest {
         assertThat(dbTrade.getUserId()).isEqualTo(trade.getUserId());
         assertThat(dbTrade.getTradeId()).isEqualTo(trade.getTradeId());
         assertThat(dbTrade.getStatus()).isEqualTo(TradeStatus.DEFALUT.getValue());
+        assertThat(dbTrade.getGmtCreate()).isNotNull();
+        assertThat(dbTrade.getGmtModified()).isNotNull();
 
     }
 
