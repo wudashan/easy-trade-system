@@ -1,8 +1,8 @@
-package cn.wudashan;
+package cn.wudashan.service;
 
+import cn.wudashan.JunitBaseTest;
 import cn.wudashan.domain.Trade;
 import cn.wudashan.domain.TradeStatistics;
-import cn.wudashan.service.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
-public class TradeStatisticsServiceTest extends JunitBaseTest  {
+public class TradeStatisticsServiceTest extends JunitBaseTest {
 
     @Autowired
     private TradeRepository tradeRepository;

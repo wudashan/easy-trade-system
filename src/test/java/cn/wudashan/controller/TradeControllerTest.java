@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,10 +48,10 @@ public class TradeControllerTest extends JunitBaseTest {
         // 构造条件
         TradeRequestDTO requestDTO = new TradeRequestDTO();
         requestDTO.setUserId(UUID.randomUUID().toString());
-        requestDTO.setRmbAmount(new BigDecimal(125.0));
+        requestDTO.setRmbAmount(new BigDecimal(125.0).setScale(3, RoundingMode.FLOOR));
         requestDTO.setForeignTradeDirection(ForeignTradeDirection.BUY.getValue());
-        requestDTO.setForeignAmount(new BigDecimal(100.0));
-        requestDTO.setExchangeRate(new BigDecimal(0.8));
+        requestDTO.setForeignAmount(new BigDecimal(100.0).setScale(3, RoundingMode.FLOOR));
+        requestDTO.setExchangeRate(new BigDecimal(0.8).setScale(6, RoundingMode.FLOOR));
         requestDTO.setForeignAmountType(AmountType.HKD.getValue());
 
         // 调用测试接口
@@ -67,11 +68,11 @@ public class TradeControllerTest extends JunitBaseTest {
         List<Trade> trades = tradeRepository.findAll();
         assertThat(trades.size()).isEqualTo(1);
         Trade trade = trades.get(0);
-        assertThat(trade.getForeignAmount()).isEqualTo(requestDTO.getForeignAmount());
+        assertThat(trade.getForeignAmount().compareTo(requestDTO.getForeignAmount())).isEqualTo(0);
         assertThat(trade.getForeignTradeDirection()).isEqualTo(requestDTO.getForeignTradeDirection());
-        assertThat(trade.getExchangeRate()).isEqualTo(requestDTO.getExchangeRate());
+        assertThat(trade.getExchangeRate().compareTo(requestDTO.getExchangeRate())).isEqualTo(0);
         assertThat(trade.getForeignAmountType()).isEqualTo(requestDTO.getForeignAmountType());
-        assertThat(trade.getRmbAmount()).isEqualTo(requestDTO.getRmbAmount());
+        assertThat(trade.getRmbAmount().compareTo(requestDTO.getRmbAmount())).isEqualTo(0);
         assertThat(trade.getUserId()).isEqualTo(requestDTO.getUserId());
         assertThat(trade.getTradeId()).isEqualTo(responseDTO.getTradeId());
         assertThat(trade.getStatus()).isEqualTo(TradeStatus.DEFALUT.getValue());
@@ -85,10 +86,10 @@ public class TradeControllerTest extends JunitBaseTest {
         trade.setUserId(UUID.randomUUID().toString());
         trade.setTradeId(UUID.randomUUID().toString());
         trade.setStatus(TradeStatus.DEFALUT.getValue());
-        trade.setRmbAmount(new BigDecimal(125.0));
+        trade.setRmbAmount(new BigDecimal(125.0).setScale(3, RoundingMode.FLOOR));
         trade.setForeignTradeDirection(ForeignTradeDirection.BUY.getValue());
-        trade.setForeignAmount(new BigDecimal(100.0));
-        trade.setExchangeRate(new BigDecimal(0.8));
+        trade.setForeignAmount(new BigDecimal(100.0).setScale(3, RoundingMode.FLOOR));
+        trade.setExchangeRate(new BigDecimal(0.8).setScale(6, RoundingMode.FLOOR));
         trade.setForeignAmountType(AmountType.HKD.getValue());
         tradeRepository.save(trade);
 
@@ -111,11 +112,11 @@ public class TradeControllerTest extends JunitBaseTest {
         List<Trade> trades = tradeRepository.findAll();
         assertThat(trades.size()).isEqualTo(1);
         Trade dbTrade = trades.get(0);
-        assertThat(dbTrade.getForeignAmount()).isEqualTo(trade.getForeignAmount());
+        assertThat(dbTrade.getForeignAmount().compareTo(trade.getForeignAmount())).isEqualTo(0);
         assertThat(dbTrade.getForeignTradeDirection()).isEqualTo(trade.getForeignTradeDirection());
-        assertThat(dbTrade.getExchangeRate()).isEqualTo(trade.getExchangeRate());
+        assertThat(dbTrade.getExchangeRate().compareTo(trade.getExchangeRate())).isEqualTo(0);
         assertThat(dbTrade.getForeignAmountType()).isEqualTo(trade.getForeignAmountType());
-        assertThat(dbTrade.getRmbAmount()).isEqualTo(trade.getRmbAmount());
+        assertThat(dbTrade.getRmbAmount().compareTo(trade.getRmbAmount())).isEqualTo(0);
         assertThat(dbTrade.getUserId()).isEqualTo(trade.getUserId());
         assertThat(dbTrade.getTradeId()).isEqualTo(trade.getTradeId());
         assertThat(dbTrade.getStatus()).isEqualTo(TradeStatus.CANCEL.getValue());
@@ -130,10 +131,10 @@ public class TradeControllerTest extends JunitBaseTest {
         trade.setUserId(UUID.randomUUID().toString());
         trade.setTradeId(UUID.randomUUID().toString());
         trade.setStatus(TradeStatus.DEFALUT.getValue());
-        trade.setRmbAmount(new BigDecimal(125.0));
+        trade.setRmbAmount(new BigDecimal(125.0).setScale(3, RoundingMode.FLOOR));
         trade.setForeignTradeDirection(ForeignTradeDirection.BUY.getValue());
-        trade.setForeignAmount(new BigDecimal(100.0));
-        trade.setExchangeRate(new BigDecimal(0.8));
+        trade.setForeignAmount(new BigDecimal(100.0).setScale(3, RoundingMode.FLOOR));
+        trade.setExchangeRate(new BigDecimal(0.8).setScale(6, RoundingMode.FLOOR));
         trade.setForeignAmountType(AmountType.HKD.getValue());
         tradeRepository.save(trade);
 
@@ -156,11 +157,11 @@ public class TradeControllerTest extends JunitBaseTest {
         List<Trade> trades = tradeRepository.findAll();
         assertThat(trades.size()).isEqualTo(1);
         Trade dbTrade = trades.get(0);
-        assertThat(dbTrade.getForeignAmount()).isEqualTo(trade.getForeignAmount());
+        assertThat(dbTrade.getForeignAmount().compareTo(trade.getForeignAmount())).isEqualTo(0);
         assertThat(dbTrade.getForeignTradeDirection()).isEqualTo(trade.getForeignTradeDirection());
-        assertThat(dbTrade.getExchangeRate()).isEqualTo(trade.getExchangeRate());
+        assertThat(dbTrade.getExchangeRate().compareTo(trade.getExchangeRate())).isEqualTo(0);
         assertThat(dbTrade.getForeignAmountType()).isEqualTo(trade.getForeignAmountType());
-        assertThat(dbTrade.getRmbAmount()).isEqualTo(trade.getRmbAmount());
+        assertThat(dbTrade.getRmbAmount().compareTo(trade.getRmbAmount())).isEqualTo(0);
         assertThat(dbTrade.getUserId()).isEqualTo(trade.getUserId());
         assertThat(dbTrade.getTradeId()).isEqualTo(trade.getTradeId());
         assertThat(dbTrade.getStatus()).isEqualTo(TradeStatus.DEFALUT.getValue());
