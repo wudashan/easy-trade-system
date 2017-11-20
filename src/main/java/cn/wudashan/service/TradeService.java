@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * @author wuzhaofeng
  */
-@Service
 public interface TradeService {
 
     String saveTrade(TradeRequestDTO requestDTO);
