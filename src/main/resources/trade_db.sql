@@ -32,8 +32,8 @@ CREATE TABLE `trade` (
   `trade_id` char(36) NOT NULL,
   `user_id` varchar(64) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_trade_id_user_id` (`trade_id`,`user_id`) USING BTREE,
-  KEY `idx_trade_id_user_id_status` (`trade_id`,`user_id`,`status`) USING HASH
+  UNIQUE KEY `uk_trade_id_user_id` (`trade_id`(20),`user_id`(20)) USING BTREE,
+  KEY `idx_trade_id_user_id_status` (`trade_id`(20),`user_id`(20),`status`(20)) USING HASH
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
