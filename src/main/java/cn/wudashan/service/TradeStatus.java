@@ -6,7 +6,7 @@ package cn.wudashan.service;
 
 public enum TradeStatus {
 
-    DEFALUT("DEFAULT"), CANCEL("CANCEL"), AGGREGATED("AGGREGATED");
+    DEFALUT("DEFAULT"), CANCEL("CANCEL"), AGGREGATED("AGGREGATED"), AGGREGATING("AGGREGATING");
 
     private final String value;
 

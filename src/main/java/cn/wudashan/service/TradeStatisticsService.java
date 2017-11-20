@@ -20,6 +20,8 @@ public class TradeStatisticsService {
 
     private static final String PER_TEN_MINUTES = "0 0/10 * * * ?";
 
+    private static final int PAGE_SIZE = 100;
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
@@ -36,34 +38,43 @@ public class TradeStatisticsService {
         DateTime statisticsTime = new DateTime();
 
         BigDecimal rmbMoney = new BigDecimal(0);
+
+        tradeService.updateAllByStatus(TradeStatus.AGGREGATING, TradeStatus.DEFALUT);
+
         for (AmountType amountType : AmountType.values()) {
 
-            List<Trade> trades = tradeService.findAll(TradeStatus.DEFALUT, amountType);
-            if (trades.isEmpty()) {
+            if (AmountType.RMB.equals(amountType)) {
                 continue;
             }
-            for (Trade trade : trades) {
-                trade.setStatus(TradeStatus.AGGREGATED.getValue());
-            }
-            tradeService.saveAll(trades);
+
+            Long count = tradeService.countAllByParam(TradeStatus.AGGREGATING, amountType);
 
             BigDecimal foreignMoney = new BigDecimal(0);
-            for (Trade trade : trades) {
-                if (ForeignTradeDirection.BUY.getValue().equals(trade.getForeignTradeDirection())) {
-                    foreignMoney = foreignMoney.subtract(trade.getForeignAmount());
-                    rmbMoney = rmbMoney.subtract(trade.getRmbAmount());
+            for (int page = 0; count > 0; page++) {
+
+                List<Trade> trades = tradeService.findByParamAndPage(TradeStatus.AGGREGATING, amountType, page, PAGE_SIZE);
+
+                if (trades.isEmpty()) {
+                    continue;
                 }
-                if (ForeignTradeDirection.SELL.getValue().equals(trade.getForeignTradeDirection())) {
-                    foreignMoney = foreignMoney.add(trade.getForeignAmount());
-                    rmbMoney = rmbMoney.add(trade.getRmbAmount());
+
+                for (Trade trade : trades) {
+                    if (ForeignTradeDirection.BUY.getValue().equals(trade.getForeignTradeDirection())) {
+                        foreignMoney = foreignMoney.subtract(trade.getForeignAmount());
+                        rmbMoney = rmbMoney.subtract(trade.getRmbAmount());
+                    }
+                    if (ForeignTradeDirection.SELL.getValue().equals(trade.getForeignTradeDirection())) {
+                        foreignMoney = foreignMoney.add(trade.getForeignAmount());
+                        rmbMoney = rmbMoney.add(trade.getRmbAmount());
+                    }
                 }
+                count -= PAGE_SIZE;
             }
             TradeStatistics tradeStatistics = new TradeStatistics();
             tradeStatistics.setAmountType(amountType.getValue());
             tradeStatistics.setAmount(foreignMoney);
             tradeStatistics.setStatisticsTime(statisticsTime);
             tradeStatisticsRepository.save(tradeStatistics);
-
         }
 
         TradeStatistics tradeStatistics = new TradeStatistics();
@@ -71,6 +82,8 @@ public class TradeStatisticsService {
         tradeStatistics.setAmount(rmbMoney);
         tradeStatistics.setStatisticsTime(statisticsTime);
         tradeStatisticsRepository.save(tradeStatistics);
+
+        tradeService.updateAllByStatus(TradeStatus.AGGREGATED, TradeStatus.AGGREGATING);
 
         logger.info("end...");
 

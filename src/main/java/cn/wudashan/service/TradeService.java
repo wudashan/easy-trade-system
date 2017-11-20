@@ -5,6 +5,9 @@ import cn.wudashan.dto.CancelTradeRequestDTO;
 import cn.wudashan.dto.TradeRequestDTO;
 import cn.wudashan.service.exception.TradeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,12 +54,19 @@ public class TradeService {
 
     }
 
-    public List<Trade> findAll(TradeStatus tradeStatus, AmountType amountType) {
-        return tradeRepository.findAllByStatusAndForeignAmountType(tradeStatus.getValue(), amountType.getValue());
+    public List<Trade> findByParamAndPage(TradeStatus tradeStatus, AmountType amountType, int page , int size) {
+
+        Sort sort = new Sort(Sort.Direction.ASC, "id");
+        Pageable pageable = new PageRequest(page, size, sort);
+        return tradeRepository.findAllByStatusAndForeignAmountType(tradeStatus.getValue(), amountType.getValue(), pageable);
     }
 
-    public List<Trade> saveAll(List<Trade> trades) {
-        return tradeRepository.save(trades);
+    public Long countAllByParam(TradeStatus tradeStatus, AmountType amountType) {
+        return tradeRepository.countAllByStatusAndForeignAmountType(tradeStatus.getValue(), amountType.getValue());
+    }
+
+    public void updateAllByStatus(TradeStatus dstStatus, TradeStatus srcStatus) {
+        tradeRepository.updateAllByStatus(dstStatus.getValue(), srcStatus.getValue());
     }
 
 }
